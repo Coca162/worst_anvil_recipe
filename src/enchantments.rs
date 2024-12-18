@@ -108,7 +108,7 @@ const PROTECTION: Enchantment = Enchantment::new(EnchantTypes::Protection, 4, 1,
 // Practically the same as Fire Protection
 // const PROJECTILE_PROTECTION: Enchantment<ProtectionExclusive> = Enchantment::new(EnchantTypes::ProjectileProtection, 4, 2, 1);
 
-pub const PROTECTIONS: [Enchantment; 3] = [BLAST_PROTECTION, FEATHER_FALLING, PROTECTION];
+pub const PROTECTIONS: [Enchantment; 3] = [BLAST_PROTECTION, FIRE_PROTECTION, PROTECTION];
 
 // For the purposes of this frost walker is strictly worse then
 // depth strider due to having the same mulitlpiers and a lower max level
