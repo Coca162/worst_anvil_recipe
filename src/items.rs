@@ -13,26 +13,25 @@ pub struct Item {
     recipe: Option<(Box<Item>, Box<Item>)>,
     anvil_uses: u32,
     pub total_cost: u32,
-    cost: u32
+    cost: u32,
 }
 
 impl Item {
-    pub fn from_enchantment(enchantment: Enchantment) -> Self {
+    pub fn from_enchantment(enchantment: Enchantment, r#type: ItemType) -> Self {
         Self {
             enchants: Enchants::new(iter::once(Enchant::new(enchantment, 1))),
-            r#type: ItemType::Other,
+            r#type,
             recipe: None,
             anvil_uses: 0,
             total_cost: 0,
-            cost: 0
+            cost: 0,
         }
     }
 
     pub fn combine(self, sacrifice: Self) -> Result<Self, AnvilError> {
         let mut enchants = self.enchants.clone();
 
-        let mut cost = enchants
-            .combine((&sacrifice.enchants, sacrifice.r#type))?;
+        let mut cost = enchants.combine((&sacrifice.enchants, sacrifice.r#type))?;
 
         cost += penalty(self.anvil_uses);
         cost += penalty(sacrifice.anvil_uses);
@@ -47,7 +46,7 @@ impl Item {
             anvil_uses: sacrifice.anvil_uses.max(sacrifice.anvil_uses) + 1,
             total_cost: self.total_cost + cost,
             recipe: Some((Box::new(self), Box::new(sacrifice))),
-            cost
+            cost,
         })
     }
 }
